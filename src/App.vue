@@ -1,26 +1,77 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <el-container>
+    <el-header id="header">
+      <el-affix>
+      <page-top
+        @select="setPlace"
+      />
+      </el-affix>
+    </el-header>
+    <el-body id="body">
+      <page-main
+        v-if="place"
+        :placeGeo="place"
+      />
+      <page-default
+        v-else
+      />
+        <el-image :src="churchImg" />
+    </el-body>
+    <el-footer id="footer">
+    </el-footer>
+  </el-container>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import PageTop from './components/PageTop.vue'
+import PageDefault from './components/PageDefault.vue'
+import PageMain from './components/PageMain.vue'
+
+const churchImg = require("@/assets/church.png");
 
 export default {
+  components: { PageTop, PageDefault, PageMain },
   name: 'App',
-  components: {
-    HelloWorld
+  data() {
+    return {
+      churchImg,
+      place: null
+    }
+  },
+  methods: {
+    setPlace(value) {
+      if (value.point) {
+        this.place = value;
+      } 
+    }
   }
 }
 </script>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+.el-image {
+  position: absolute;
+  bottom: 0px;
+  left: 60%;
+  width: 40%;
+  display: block;
+  margin-left: auto;
 }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: content-box;
+  }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@500&family=Nunito&display=swap');
+
+  #body {
+    min-height: 100vh;
+    position: relative;
+  }
+
+  #footer {
+    background-color: #E4E7ED;
+  }
+
 </style>
