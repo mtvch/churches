@@ -1,5 +1,7 @@
 # Churches
 
+Application that finds churches near given location and shows information about them.
+
 ## Project setup
 ```
 npm install
